@@ -1,24 +1,27 @@
 import React, { Component } from "react";
 import "./App.css";
 
-import ListItem from './ListItem'
+import ListItem from "./ListItem";
 
 class App extends Component {
   constructor() {
-    super()
+    super();
     this.state = {
       editing: false,
       editingIndex: null,
-      newTodo: '',
-      todos: [{ id: 1, name: "belajar react" }, { id: 2, name: "Bikin modul" }]
-    }
+      newTodo: "",
+      todos: [
+        { id: 1, name: "belajar react" },
+        { id: 2, name: "Bikin modul" }
+      ]
+    };
   }
 
   handleChange = event => {
     this.setState({
       newTodo: event.target.value
-    })
-  }
+    });
+  };
 
   addTodo = () => {
     const id = this.state.todos.length + 1;
@@ -27,53 +30,53 @@ class App extends Component {
       name: this.state.newTodo
     };
 
-    const todos = this.state.todos
-    todos.push(newTodoInput)
+    const todos = this.state.todos;
+    todos.push(newTodoInput);
 
     this.setState({
-      newTodo: '',
+      newTodo: "",
       todos
-    })
+    });
 
-    console.log(this.state.todos)
+    // console.log(this.state.todos)
   };
 
-  deleteTodo = (index) => {
-    const todos = this.state.todos
-    todos.splice(index, 1)
+  deleteTodo = index => {
+    const todos = this.state.todos;
+    todos.splice(index, 1);
 
-    this.setState({todos})
-    console.log(this.state.todos)
-    console.log(this.state.todos.length)
-  }
+    this.setState({ todos });
+    // console.log(this.state.todos)
+    // console.log(this.state.todos.length)
+  };
 
-  editTodo = (index) => {
-    const todo = this.state.todos[index]
+  editTodo = index => {
+    const todo = this.state.todos[index];
     this.setState({
       editing: true,
       editingIndex: index,
       newTodo: todo.name
-    })
-  }
+    });
+  };
 
   updateTodo = () => {
-    const index = this.state.editingIndex
-    const todo = this.state.todos[index]
+    const index = this.state.editingIndex;
+    const todo = this.state.todos[index];
 
-    todo.name = this.state.newTodo
+    todo.name = this.state.newTodo;
 
-    const todos = this.state.todos
-    todos[index] = todo
+    const todos = this.state.todos;
+    todos[index] = todo;
 
     this.setState({
       editing: false,
       editingIndex: null,
-      newTodo: '',
+      newTodo: "",
       todos
-    })
+    });
 
-    console.log(this.state.todos)
-  }
+    // console.log(this.state.todos)
+  };
 
   render() {
     return (
@@ -97,9 +100,14 @@ class App extends Component {
           {this.state.todos.map((item, index) => {
             return (
               <ListItem
+                key={item.id}
                 item={item}
-                deleteTodo={() => {this.deleteTodo(index)}}
-                editTodo={() => {this.editTodo(index)}}
+                deleteTodo={() => {
+                  this.deleteTodo(index);
+                }}
+                editTodo={() => {
+                  this.editTodo(index);
+                }}
               />
             );
           })}
